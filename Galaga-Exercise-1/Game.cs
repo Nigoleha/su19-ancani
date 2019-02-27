@@ -8,6 +8,7 @@ using DIKUArcade.Entities;
 using DIKUArcade.Timers; 
 using DIKUArcade.Math; 
 using DIKUArcade.Graphics;
+using DIKUArcade.Physics;
 
 namespace Galaga_Exercise_1 {
     public class Game : IGameEventProcessor<object> {
@@ -70,6 +71,7 @@ namespace Galaga_Exercise_1 {
                     foreach (var ene in enemies) {
                         ene.RenderEntity();
                     }
+                    IterateShots();
                     win.SwapBuffers();
                 }
 
@@ -83,6 +85,8 @@ namespace Galaga_Exercise_1 {
 
                 
             }
+            
+            
             
             
         }
@@ -132,14 +136,45 @@ namespace Galaga_Exercise_1 {
             enemies.Add(enemy);
         }
         
+		//public void AddExplosion(float posX, float posY, float extentX, float extentY){
+		//	float extentX, float extentY){
+		//		explosions.AddAnimation(
+		//			new StationaryShape(posX, posY, extentX, extentY), explosionLength, 
+		//			new ImageStride(explosionLength/8, explosionStrides)); 
+		//	}			
+        public void IterateShots() {
+            foreach (var shot in playerShots) {
+                shot.Shape.Move();
+                if (shot.Shape.Position.Y > 1.0f) {
+                    shot.DeleteEntity();
+                }
 
-		public void AddExplosion(float posX, float posY, float extentX, float extentY){
-			float extentX, float extentY){
-				explosions.AddAnimation(
-					new StationaryShape(posX, posY, extentX, extentY), explosionLength, 
-					new ImageStride(explosionLength/8, explosionStrides)); 
-			}			
+                foreach (var enemy in enemies) {
+                    var collide = CollisionDetection.Aabb(enemy.Shape.AsDynamicShape(), shot.Shape);
+                    if (collide.Collision) {
+                        enemy.DeleteEntity();
+                        shot.DeleteEntity();
+                    }
+                }
+                
+                List<Enemy> newEnemies = new List<Enemy>();
+                foreach (Enemy enemy in enemies) {
+                    if (!enemy.IsDeleted()) {
+                        newEnemies.Add(enemy);
+                    }
+                }
+                enemies = newEnemies;
+                
+                List<PlayerShot> newShots = new List<PlayerShot>();
+                foreach (PlayerShot shots in playerShots) {
+                    if (!shots.IsDeleted()) {
+                        newShots.Add(shots);
+                    }
+                }
 
+                playerShots = newShots;
+            }
+        }
     }
 
 }
