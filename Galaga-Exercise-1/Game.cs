@@ -17,6 +17,7 @@ namespace Galaga_Exercise_1 {
         private GameEventBus<object> eventBus;
         private List<Enemy> enemies; 
         private List<Image> enemyStrides;
+        public List<PlayerShot> playerShots{get; private set; }
        
 
         public Game() {
@@ -42,6 +43,7 @@ namespace Galaga_Exercise_1 {
                 Path.Combine("Assets", "Images", "BlueMonster.png"));
             enemies = new List<Enemy>();
             AddEnemies();
+            playerShots = new List<PlayerShot>();
                 
             
                 
@@ -122,7 +124,7 @@ namespace Galaga_Exercise_1 {
             enemies.Add(enemy);
         }
         
-        //public List<PlayerShot> playerShots { get; private set; }
+
     }
 
 }
