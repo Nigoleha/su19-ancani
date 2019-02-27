@@ -18,6 +18,11 @@ namespace Galaga_Exercise_1 {
         private List<Enemy> enemies; 
         private List<Image> enemyStrides;
         public List<PlayerShot> playerShots{get; private set; }
+		
+		//Explosions
+		private List<Image> explosionStrides; 
+		private AnimationContainer explosions; 
+		private int explosionLength = 500; 
        
 
         public Game() {
@@ -45,8 +50,11 @@ namespace Galaga_Exercise_1 {
             AddEnemies();
             playerShots = new List<PlayerShot>();
                 
-            
-                
+            //explosions 
+			explosionStrides = ImageStride.CreateStrides(8, 
+				Path.Combine("Assets", "Images", "Explosion.png")); 
+			explosions = new AnimationContainer(8); 
+             
         }
 
         public void GameLoop() {
@@ -124,6 +132,13 @@ namespace Galaga_Exercise_1 {
             enemies.Add(enemy);
         }
         
+
+		public void AddExplosion(float posX, float posY, float extentX, float extentY){
+			float extentX, float extentY){
+				explosions.AddAnimation(
+					new StationaryShape(posX, posY, extentX, extentY), explosionLength, 
+					new ImageStride(explosionLength/8, explosionStrides)); 
+			}			
 
     }
 
