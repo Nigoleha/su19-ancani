@@ -11,7 +11,7 @@ namespace Galaga_Exercise_1 {
         }
 
         public void Direction(Vec2F vec) {
-            //add code
+            var shape = this as DynamicShape(vec);
         }
         public void Move() {
             //add code

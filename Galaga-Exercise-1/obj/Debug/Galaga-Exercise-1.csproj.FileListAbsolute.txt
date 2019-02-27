@@ -8,3 +8,5 @@
 /Users/carolinesahlholt/Documents/Datalogi/Softwareudvikling/Uge 4/su19-ancani/Galaga-Exercise-1/obj/Debug/Galaga-Exercise-1.csproj.CoreCompileInputs.cache
 /Users/carolinesahlholt/Documents/Datalogi/Softwareudvikling/Uge 4/su19-ancani/Galaga-Exercise-1/obj/Debug/Galaga_Exercise_1.exe
 /Users/carolinesahlholt/Documents/Datalogi/Softwareudvikling/Uge 4/su19-ancani/Galaga-Exercise-1/obj/Debug/Galaga_Exercise_1.pdb
+/home/niels/Documents/SU/su19-ancani/Galaga-Exercise-1/obj/Debug/Galaga_Exercise_1.exe
+/home/niels/Documents/SU/su19-ancani/Galaga-Exercise-1/obj/Debug/Galaga_Exercise_1.pdb
