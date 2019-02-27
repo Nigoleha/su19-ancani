@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using DIKUArcade.Entities;
 using DIKUArcade.Graphics;
@@ -14,6 +15,5 @@ namespace Galaga_Exercise_1 {
 
         
 
-        }
     }
-
+}
