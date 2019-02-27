@@ -12,7 +12,8 @@ namespace Galaga_Exercise_1 {
     public class Game : IGameEventProcessor<object> {
         private Window win;
         private DIKUArcade.Timers.GameTimer gameTimer;
-        private Player player; 
+        private Player player;
+        private GameEvent<object> eventBus;
 
         public Game() {
             // TODO: Choose some reasonable values for the window and timer constructor.
@@ -21,8 +22,7 @@ namespace Galaga_Exercise_1 {
             gameTimer = new GameTimer(60, 60);
 
             player = new Player(this,
-                new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f, 0.1f)),
-                new Image(Path.Combine("Assets", "Images", "Player.png")));
+                new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f, 0.1f)), new Image(Path.Combine("Assets", "Images", "Player.png")));
             player.Move();
 
         }
