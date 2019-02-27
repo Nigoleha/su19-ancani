@@ -136,12 +136,12 @@ namespace Galaga_Exercise_1 {
             enemies.Add(enemy);
         }
         
-		//public void AddExplosion(float posX, float posY, float extentX, float extentY){
-		//	float extentX, float extentY){
-		//		explosions.AddAnimation(
-		//			new StationaryShape(posX, posY, extentX, extentY), explosionLength, 
-		//			new ImageStride(explosionLength/8, explosionStrides)); 
-		//	}			
+		public void AddExplosion(float posX, float posY, float extentX, float extentY){
+			explosions.AddAnimation(
+				new StationaryShape(posX, posY, extentX, extentY), explosionLength, 
+				new ImageStride(explosionLength/8, explosionStrides)); 
+		}			
+			
         public void IterateShots() {
             foreach (var shot in playerShots) {
                 shot.Shape.Move();
@@ -152,6 +152,7 @@ namespace Galaga_Exercise_1 {
                 foreach (var enemy in enemies) {
                     var collide = CollisionDetection.Aabb(enemy.Shape.AsDynamicShape(), shot.Shape);
                     if (collide.Collision) {
+                        AddExplosion (enemy.Shape.Position.X, enemy.Shape.Position.Y, 10.0f, 10.0f); 
                         enemy.DeleteEntity();
                         shot.DeleteEntity();
                     }
