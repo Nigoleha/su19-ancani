@@ -1,3 +1,4 @@
+using System.IO;
 using DIKUArcade.Entities;
 using DIKUArcade.Graphics;
 using DIKUArcade.Math;
@@ -20,6 +21,13 @@ namespace Galaga_Exercise_1 {
                 Shape.Move();
             }
             
+        }
+        public void CreateShots() {
+            // while (space is pressed by player) {
+            PlayerShot playershot = new PlayerShot(game, 
+                new DynamicShape(new Vec2F(Shape.Position.X, Shape.Position.Y-2), new Vec2F(0.008f, 0.027f)), 
+                new Image(Path.Combine("Assets", "Images", "BulletRed2.png")));
+            game.playerShots.Add(playershot);
         }
     }
 }
