@@ -173,11 +173,17 @@ namespace Galaga_Exercise_1 {
                 }
 
                 foreach (var enemy in enemies) {
-                    var collide = CollisionDetection.Aabb(enemy.Shape.AsDynamicShape(), shot.Shape);
+                    Console.WriteLine(enemy.Shape.Position);
+                    Console.WriteLine(shot.Shape.Position);
+                   // var collide = CollisionDetection.Aabb((DynamicShape) enemy.Shape, shot.Shape);
+                   var collide =
+                       CollisionDetection.Aabb(new DynamicShape(0.45f, 0.7799996f, 0.1f, 0.1f),
+                           shot.Shape);
                     if (collide.Collision) {
-                        AddExplosion (enemy.Shape.Position.X, enemy.Shape.Position.Y, 1.0f, 1.0f); 
-                        enemy.DeleteEntity();
-                        shot.DeleteEntity();
+                        Console.WriteLine("HAllo");
+                        //AddExplosion (enemy.Shape.Position.X, enemy.Shape.Position.Y, 1.0f, 1.0f); 
+                        //enemy.DeleteEntity();
+                        //shot.DeleteEntity();
                     }
 
                     Console.WriteLine(collide.Collision);
@@ -199,7 +205,6 @@ namespace Galaga_Exercise_1 {
                         newShots.Add(shots);
                     }
                 }
-
                 playerShots = newShots;
             }
         }
