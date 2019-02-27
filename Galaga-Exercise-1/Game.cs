@@ -22,7 +22,8 @@ namespace Galaga_Exercise_1 {
             gameTimer = new GameTimer(60, 60);
 
             player = new Player(this,
-                new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f, 0.1f)), new Image(Path.Combine("Assets", "Images", "Player.png")));
+                new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f, 0.1f)), 
+                new Image(Path.Combine("Assets", "Images", "Player.png")));
             player.Move();
             eventBus = new GameEventBus<object>();
                 eventBus.InitializeEventBus(new List<GameEventType>() {
@@ -32,6 +33,13 @@ namespace Galaga_Exercise_1 {
                 win.RegisterEventBus(eventBus);
                 eventBus.Subscribe(GameEventType.InputEvent, this);
                 eventBus.Subscribe(GameEventType.WindowEvent, this);
+                List<Image> enemyStrides;
+                List<Enemy> enemies;
+                enemyStrides = ImageStride.CreateStrides(4,
+                    Path.Combine("Assets", "Images", "BlueMonster.png"));
+                enemies = new List<Enemy>();
+                
+                
         }
 
         public void GameLoop() {
@@ -43,7 +51,8 @@ namespace Galaga_Exercise_1 {
 
                 if (gameTimer.ShouldRender()) {
                     win.Clear();
-                    // Render gameplay entities here win.SwapBuffers();
+                    player.RenderEntity();
+                    win.SwapBuffers();
                 }
 
                 if (gameTimer.ShouldReset()) {
@@ -51,7 +60,7 @@ namespace Galaga_Exercise_1 {
                     win.Title = "Galaga | UPS: " + gameTimer.CapturedUpdates + ", FPS: " +
                                 gameTimer.CapturedFrames;
                 }
-                player.RenderEntity();
+                
                 eventBus.ProcessEvents();
             }
             
@@ -92,8 +101,16 @@ namespace Galaga_Exercise_1 {
                         break;
                     }
                 }
-            
+           
         }
+
+        
+        public void AddEnemies() {
+            enemy = new Enemy(this,
+                new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f, 0.1f)), 
+                new Image(Path.Combine("Assets", "Images", "Player.png")));
+        }
+        
         //public List<PlayerShot> playerShots { get; private set; }
     }
 
