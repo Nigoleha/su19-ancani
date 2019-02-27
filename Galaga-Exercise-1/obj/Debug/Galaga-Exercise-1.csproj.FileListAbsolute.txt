@@ -1,0 +1,10 @@
+/Users/carolinesahlholt/Documents/Datalogi/Softwareudvikling/Uge 4/su19-ancani/Galaga-Exercise-1/bin/Debug/Galaga_Exercise_1.exe
+/Users/carolinesahlholt/Documents/Datalogi/Softwareudvikling/Uge 4/su19-ancani/Galaga-Exercise-1/bin/Debug/Galaga_Exercise_1.pdb
+/Users/carolinesahlholt/Documents/Datalogi/Softwareudvikling/Uge 4/su19-ancani/Galaga-Exercise-1/bin/Debug/DIKUArcade.dll
+/Users/carolinesahlholt/Documents/Datalogi/Softwareudvikling/Uge 4/su19-ancani/Galaga-Exercise-1/bin/Debug/OpenTK.dll
+/Users/carolinesahlholt/Documents/Datalogi/Softwareudvikling/Uge 4/su19-ancani/Galaga-Exercise-1/bin/Debug/DIKUArcade.pdb
+/Users/carolinesahlholt/Documents/Datalogi/Softwareudvikling/Uge 4/su19-ancani/Galaga-Exercise-1/bin/Debug/OpenTK.xml
+/Users/carolinesahlholt/Documents/Datalogi/Softwareudvikling/Uge 4/su19-ancani/Galaga-Exercise-1/obj/Debug/Galaga-Exercise-1.csprojResolveAssemblyReference.cache
+/Users/carolinesahlholt/Documents/Datalogi/Softwareudvikling/Uge 4/su19-ancani/Galaga-Exercise-1/obj/Debug/Galaga-Exercise-1.csproj.CoreCompileInputs.cache
+/Users/carolinesahlholt/Documents/Datalogi/Softwareudvikling/Uge 4/su19-ancani/Galaga-Exercise-1/obj/Debug/Galaga_Exercise_1.exe
+/Users/carolinesahlholt/Documents/Datalogi/Softwareudvikling/Uge 4/su19-ancani/Galaga-Exercise-1/obj/Debug/Galaga_Exercise_1.pdb
