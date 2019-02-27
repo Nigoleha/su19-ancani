@@ -2,7 +2,7 @@ using DIKUArcade;
 using DIKUArcade.EventBus;
 using DIKUArcade.Entities;
 using DIKUArcade.Timers; 
-using System;
+using System.IO.Path;
 using DIKUArcade.Math; 
 using DIKUArcade.Graphics;
 
@@ -10,12 +10,19 @@ namespace Galaga_Exercise_1 {
     public class Game : IGameEventProcessor<object> {
         private Window win;
         private DIKUArcade.Timers.GameTimer gameTimer;
+        private Player player; 
 
         public void Game1() {
             // TODO: Choose some reasonable values for the window and timer constructor.
             // For the window, we recommend a 500x500 resolution (a 1:1 aspect ratio).
             win = new Window("Arcade Game", 500, 500);
             gameTimer = new GameTimer(60, 60);
+
+            player = new Player(this,
+                new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f, 0.1f)),
+                new Image(Path.Combine("Assets", "Images", "Player.png")));
+
+
         }
 
         public void GameLoop() {
@@ -36,6 +43,7 @@ namespace Galaga_Exercise_1 {
                                 gameTimer.CapturedFrames;
                 }
             }
+
             player.RenderEntity();
         }
 
@@ -50,8 +58,6 @@ namespace Galaga_Exercise_1 {
         public void ProcessEvent(GameEventType eventType, GameEvent<object> gameEvent) {
             throw new NotImplementedException();
         }
-
-        private Player player = new Player(this,
-            new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f,0.1f)), new Image(Path.Combine("Assets", "Images", "Player.png")));
     }
+
 }
