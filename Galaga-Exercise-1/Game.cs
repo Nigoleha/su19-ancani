@@ -17,7 +17,7 @@ namespace Galaga_Exercise_1 {
         private GameEventBus<object> eventBus;
         private List<Enemy> enemies; 
         private List<Image> enemyStrides;
-        public List<PlayerShot> playerShots{get; private set; }
+        public List<PlayerShot> playerShots;
        
 
         public Game() {
