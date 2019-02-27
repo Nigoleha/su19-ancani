@@ -13,7 +13,7 @@ namespace Galaga_Exercise_1 {
         private Window win;
         private DIKUArcade.Timers.GameTimer gameTimer;
         private Player player;
-        private GameEvent<object> eventBus;
+        private GameEventBus<object> eventBus;
 
         public Game() {
             // TODO: Choose some reasonable values for the window and timer constructor.
@@ -24,7 +24,14 @@ namespace Galaga_Exercise_1 {
             player = new Player(this,
                 new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f, 0.1f)), new Image(Path.Combine("Assets", "Images", "Player.png")));
             player.Move();
-
+            eventBus = new GameEventBus<object>();
+                eventBus.InitializeEventBus(new List<GameEventType>() {
+                    GameEventType.InputEvent, // key press / key release
+                    GameEventType.WindowEvent, // messages to the window
+                });
+                win.RegisterEventBus(eventBus);
+                eventBus.Subscribe(GameEventType.InputEvent, this);
+                eventBus.Subscribe(GameEventType.WindowEvent, this);
         }
 
         public void GameLoop() {
@@ -44,21 +51,48 @@ namespace Galaga_Exercise_1 {
                     win.Title = "Galaga | UPS: " + gameTimer.CapturedUpdates + ", FPS: " +
                                 gameTimer.CapturedFrames;
                 }
+                player.RenderEntity();
+                eventBus.ProcessEvents();
             }
-            player.RenderEntity();
+            
             
         }
 
         public void KeyPress(string key) {
-            throw new NotImplementedException();
-        }
+            switch (key) {
+            case "KEY_ESCAPE":
+                eventBus.RegisterEvent(
+                    GameEventFactory<object>.CreateGameEventForAllProcessors(
+                        GameEventType.WindowEvent, this, "CLOSE_WINDOW", "", ""));
+                break;
+            }
+        
+    }
 
         public void KeyRelease(string key) {
             throw new NotImplementedException();
         }
 
         public void ProcessEvent(GameEventType eventType, GameEvent<object> gameEvent) {
-            throw new NotImplementedException();
+                if (eventType == GameEventType.WindowEvent) {
+                    switch (gameEvent.Message) {
+                    case "CLOSE_WINDOW":
+                        win.CloseWindow();
+                        break;
+                    default:
+                        break;
+                    }
+                } else if (eventType == GameEventType.InputEvent) {
+                    switch (gameEvent.Parameter1) {
+                    case "KEY_PRESS":
+                        KeyPress(gameEvent.Message);
+                        break;
+                    case "KEY_RELEASE":
+                        KeyRelease(gameEvent.Message);
+                        break;
+                    }
+                }
+            
         }
         //public List<PlayerShot> playerShots { get; private set; }
     }
