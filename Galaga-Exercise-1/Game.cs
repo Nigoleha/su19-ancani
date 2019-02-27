@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using DIKUArcade;
 using DIKUArcade.EventBus;
 using DIKUArcade.Entities;
@@ -14,6 +15,9 @@ namespace Galaga_Exercise_1 {
         private DIKUArcade.Timers.GameTimer gameTimer;
         private Player player;
         private GameEventBus<object> eventBus;
+        private List<Enemy> enemies; 
+        private List<Image> enemyStrides;
+       
 
         public Game() {
             // TODO: Choose some reasonable values for the window and timer constructor.
@@ -30,15 +34,16 @@ namespace Galaga_Exercise_1 {
                     GameEventType.InputEvent, // key press / key release
                     GameEventType.WindowEvent, // messages to the window
                 });
-                win.RegisterEventBus(eventBus);
-                eventBus.Subscribe(GameEventType.InputEvent, this);
-                eventBus.Subscribe(GameEventType.WindowEvent, this);
-                List<Image> enemyStrides;
-                List<Enemy> enemies;
-                enemyStrides = ImageStride.CreateStrides(4,
-                    Path.Combine("Assets", "Images", "BlueMonster.png"));
-                enemies = new List<Enemy>();
+            win.RegisterEventBus(eventBus);
+            eventBus.Subscribe(GameEventType.InputEvent, this);
+            eventBus.Subscribe(GameEventType.WindowEvent, this);
+       
+            enemyStrides = ImageStride.CreateStrides(4,
+                Path.Combine("Assets", "Images", "BlueMonster.png"));
+            enemies = new List<Enemy>();
+            AddEnemies();
                 
+            
                 
         }
 
@@ -52,6 +57,9 @@ namespace Galaga_Exercise_1 {
                 if (gameTimer.ShouldRender()) {
                     win.Clear();
                     player.RenderEntity();
+                    foreach (var ene in enemies) {
+                        ene.RenderEntity();
+                    }
                     win.SwapBuffers();
                 }
 
@@ -62,6 +70,8 @@ namespace Galaga_Exercise_1 {
                 }
                 
                 eventBus.ProcessEvents();
+
+                
             }
             
             
@@ -104,11 +114,12 @@ namespace Galaga_Exercise_1 {
            
         }
 
-        
         public void AddEnemies() {
-            enemy = new Enemy(this,
-                new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f, 0.1f)), 
-                new Image(Path.Combine("Assets", "Images", "Player.png")));
+            Enemy enemy = new Enemy(this,
+                new DynamicShape(new Vec2F(0.45f, 0.8f), new Vec2F(0.1f, 0.1f)), 
+                new ImageStride(80, Path.Combine("Assets", "Images", "BlueMonster.png")));
+            
+            enemies.Add(enemy);
         }
         
         //public List<PlayerShot> playerShots { get; private set; }
