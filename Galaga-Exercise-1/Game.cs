@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using DIKUArcade;
 using DIKUArcade.EventBus;
@@ -59,6 +60,7 @@ namespace Galaga_Exercise_1 {
         public void ProcessEvent(GameEventType eventType, GameEvent<object> gameEvent) {
             throw new NotImplementedException();
         }
+        public List<PlayerShot> playerShots { get; private set; }
     }
 
 }
