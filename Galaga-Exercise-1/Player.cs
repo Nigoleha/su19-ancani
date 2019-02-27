@@ -31,9 +31,8 @@ namespace Galaga_Exercise_1 {
             }
         }
         public void CreateShots() {
-            // while (space is pressed by player) {
             PlayerShot playershot = new PlayerShot(game, 
-                new DynamicShape(new Vec2F(Shape.Position.X, Shape.Position.Y-2), new Vec2F(0.008f, 0.027f)), 
+                new DynamicShape(new Vec2F(Shape.Position.X +0.05f, Shape.Position.Y+0.05f), new Vec2F(0.008f, 0.027f)), 
                 new Image(Path.Combine("Assets", "Images", "BulletRed2.png")));
             game.playerShots.Add(playershot);
         }

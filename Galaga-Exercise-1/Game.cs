@@ -79,16 +79,9 @@ namespace Galaga_Exercise_1 {
                     // 1 second has passed - display last captured ups and fps
                     win.Title = "Galaga | UPS: " + gameTimer.CapturedUpdates + ", FPS: " +
                                 gameTimer.CapturedFrames;
-                }
-                
-                eventBus.ProcessEvents();
-
-                
-            }
-            
-            
-            
-            
+                }        
+                eventBus.ProcessEvents();          
+            }     
         }
 
         public void KeyPress(string key) {
@@ -117,6 +110,9 @@ namespace Galaga_Exercise_1 {
             case "KEY_DOWN":
                 player.Direction(movDown);
                 player.Move();
+                break;
+            case "KEY_SPACE": 
+                player.CreateShots();
                 break;
             default:
                 Console.WriteLine("Wrong key try again");
@@ -171,6 +167,7 @@ namespace Galaga_Exercise_1 {
         public void IterateShots() {
             foreach (var shot in playerShots) {
                 shot.Shape.Move();
+                shot.RenderEntity();
                 if (shot.Shape.Position.Y > 1.0f) {
                     shot.DeleteEntity();
                 }
@@ -178,10 +175,14 @@ namespace Galaga_Exercise_1 {
                 foreach (var enemy in enemies) {
                     var collide = CollisionDetection.Aabb(enemy.Shape.AsDynamicShape(), shot.Shape);
                     if (collide.Collision) {
-                        AddExplosion (enemy.Shape.Position.X, enemy.Shape.Position.Y, 10.0f, 10.0f); 
+                        AddExplosion (enemy.Shape.Position.X, enemy.Shape.Position.Y, 1.0f, 1.0f); 
                         enemy.DeleteEntity();
                         shot.DeleteEntity();
                     }
+
+                    Console.WriteLine(collide.Collision);
+                    AddExplosion (enemy.Shape.Position.X, enemy.Shape.Position.Y, 1.0f, 1.0f);
+                    
                 }
                 
                 List<Enemy> newEnemies = new List<Enemy>();
