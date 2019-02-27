@@ -14,7 +14,7 @@ namespace Galaga_Exercise_1 {
         private DIKUArcade.Timers.GameTimer gameTimer;
         private Player player; 
 
-        public void Game1() {
+        public Game() {
             // TODO: Choose some reasonable values for the window and timer constructor.
             // For the window, we recommend a 500x500 resolution (a 1:1 aspect ratio).
             win = new Window("Arcade Game", 500, 500);
@@ -23,7 +23,7 @@ namespace Galaga_Exercise_1 {
             player = new Player(this,
                 new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f, 0.1f)),
                 new Image(Path.Combine("Assets", "Images", "Player.png")));
-
+            player.Move();
 
         }
 
@@ -45,8 +45,8 @@ namespace Galaga_Exercise_1 {
                                 gameTimer.CapturedFrames;
                 }
             }
-
             player.RenderEntity();
+            
         }
 
         public void KeyPress(string key) {
@@ -60,7 +60,7 @@ namespace Galaga_Exercise_1 {
         public void ProcessEvent(GameEventType eventType, GameEvent<object> gameEvent) {
             throw new NotImplementedException();
         }
-        public List<PlayerShot> playerShots { get; private set; }
+        //public List<PlayerShot> playerShots { get; private set; }
     }
 
 }

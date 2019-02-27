@@ -16,6 +16,9 @@ namespace Galaga_Exercise_1 {
 
         }
         public void Move() {
+            if (!(Shape.Position.X <= 0 || Shape.Position.X >= 1)) {
+                Shape.Move();
+            }
             
         }
     }

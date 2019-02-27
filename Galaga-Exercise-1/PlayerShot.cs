@@ -3,12 +3,12 @@ using DIKUArcade.Entities;
 using DIKUArcade.Graphics;
 
 namespace Galaga_Exercise_1 {
-    public class PlayerShot: Entity {
-        private Game game;
+    //public class PlayerShot : Entity {
+        //private Game game;
 
-        public Player(Game game, DynamicShape shape, IBaseImage image)
-            : base(shape, image) {
-            this.game = game;
-            
+        //public Player(Game game, DynamicShape shape, IBaseImage image)
+          //  : base(shape, image) {
+          //  this.game = game;
+
         }
-    }
+    
