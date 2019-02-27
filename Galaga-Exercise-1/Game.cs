@@ -36,6 +36,7 @@ namespace Galaga_Exercise_1 {
                                 gameTimer.CapturedFrames;
                 }
             }
+            player.RenderEntity();
         }
 
         public void KeyPress(string key) {
