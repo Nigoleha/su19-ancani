@@ -17,10 +17,18 @@ namespace Galaga_Exercise_1 {
 
         }
         public void Move() {
-            if (!(Shape.Position.X <= 0 || Shape.Position.X >= 1)) {
+            Vec2F fixLeft = new Vec2F( 0.01f,  0.0f);
+            Vec2F fixRight = new Vec2F( -0.01f,  0.0f);
+            if (Shape.Position.X <= 0) {
+                Direction(fixLeft);
                 Shape.Move();
             }
-            
+            else if (Shape.Position.X >= 0.9) {
+                Direction(fixRight);
+                Shape.Move();
+            } else {
+                Shape.Move(); 
+            }
         }
         public void CreateShots() {
             // while (space is pressed by player) {

@@ -92,18 +92,44 @@ namespace Galaga_Exercise_1 {
         }
 
         public void KeyPress(string key) {
+            Vec2F movLeft  = new Vec2F(-0.01f,  0.0f);
+            Vec2F movRight = new Vec2F( 0.01f,  0.0f);
+            Vec2F movUp    = new Vec2F( 0.00f,  0.01f);
+            Vec2F movDown  = new Vec2F( 0.00f, -0.01f);
             switch (key) {
             case "KEY_ESCAPE":
                 eventBus.RegisterEvent(
                     GameEventFactory<object>.CreateGameEventForAllProcessors(
                         GameEventType.WindowEvent, this, "CLOSE_WINDOW", "", ""));
                 break;
+            case "KEY_LEFT":
+                player.Direction(movLeft);
+                player.Move();
+                break;
+            case "KEY_RIGHT":
+                player.Direction(movRight);
+                player.Move();
+                break;
+            case "KEY_UP":
+                player.Direction(movUp);
+                player.Move();
+                break;
+            case "KEY_DOWN":
+                player.Direction(movDown);
+                player.Move();
+                break;
+            default:
+                Console.WriteLine("Wrong key try again");
+                break;
             }
-        
-    }
+
+        }
 
         public void KeyRelease(string key) {
-            throw new NotImplementedException();
+            Vec2F movNo = new Vec2F(0.0f,0.0f);
+            player.Direction(movNo);
+            player.Move();
+            
         }
 
         public void ProcessEvent(GameEventType eventType, GameEvent<object> gameEvent) {
