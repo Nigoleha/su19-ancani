@@ -12,7 +12,7 @@ namespace Galaga_Exercise_1 {
             // TODO: Choose some reasonable values for the window and timer constructor.
             // For the window, we recommend a 500x500 resolution (a 1:1 aspect ratio).
             win = new Window("Arcade Game", 500, 500);
-            gameTimer = new GameTimer(1, 1);
+            gameTimer = new GameTimer(60, 60);
         }
 
         public void GameLoop() {
