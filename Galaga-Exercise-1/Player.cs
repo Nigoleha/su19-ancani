@@ -11,10 +11,12 @@ namespace Galaga_Exercise_1 {
         }
 
         public void Direction(Vec2F vec) {
-            var shape = this as DynamicShape(vec);
+            var fig = Shape.AsDynamicShape();
+            fig.ChangeDirection(vec);
+
         }
         public void Move() {
-            //add code
+            
         }
     }
 }
