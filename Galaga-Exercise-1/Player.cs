@@ -10,8 +10,8 @@ namespace Galaga_Exercise_1 {
             this.game = game;
         }
 
-        public void Direction(Vec2F) {
-            //add code
+        public void Direction(Vec2F dir) {
+            
         }
         public void Move() {
             //add code
