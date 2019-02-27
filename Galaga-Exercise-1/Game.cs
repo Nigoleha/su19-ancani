@@ -1,7 +1,10 @@
 using DIKUArcade;
 using DIKUArcade.EventBus;
+using DIKUArcade.Entities;
 using DIKUArcade.Timers; 
 using System;
+using DIKUArcade.Math; 
+using DIKUArcade.Graphics;
 
 namespace Galaga_Exercise_1 {
     public class Game : IGameEventProcessor<object> {
@@ -47,8 +50,7 @@ namespace Galaga_Exercise_1 {
             throw new NotImplementedException();
         }
 
-        private Player player;
-        Player = new Plater(this,
+        private Player player = new Player(this,
             new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f,0.1f)), new Image(Path.Combine("Assets", "Images", "Player.png")));
     }
 }
