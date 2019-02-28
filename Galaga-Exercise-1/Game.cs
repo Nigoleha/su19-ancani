@@ -165,7 +165,7 @@ namespace Galaga_Exercise_1 {
                 Enemy enemy = new Enemy(this,
                     //x is changed 
                     new DynamicShape(new Vec2F(i*0.1f, 0.8f), new Vec2F(0.1f, 0.1f)),
-                    //Changed to use enemyStrides, instead of the same picture each time 
+                    //Changed to use enemyStrides, instead of loading the same picture each time 
                     new ImageStride(80, enemyStrides));
 
                 enemies.Add(enemy);
@@ -173,7 +173,6 @@ namespace Galaga_Exercise_1 {
         }
         
 		public void AddExplosion(float posX, float posY, float extentX, float extentY){
-            Console.WriteLine("Bang");
 			explosions.AddAnimation(
 				new StationaryShape(posX, posY, extentX, extentY), explosionLength, 
 				new ImageStride(explosionLength/8, explosionStrides)); 
@@ -188,18 +187,13 @@ namespace Galaga_Exercise_1 {
                 }
 
                 foreach (var enemy in enemies) {
-                    Console.WriteLine(enemy.Shape.Position);
-                    Console.WriteLine(shot.Shape.Position);
                     var collide = CollisionDetection.Aabb(shot.Shape.AsDynamicShape(), enemy.Shape);
                     
                     if (collide.Collision) {
-                        Console.WriteLine("HAllo");
                         AddExplosion (enemy.Shape.Position.X, enemy.Shape.Position.Y, 0.1f, 0.1f); 
                         enemy.DeleteEntity();
                         shot.DeleteEntity();
                     }
-
-                    Console.WriteLine(collide.Collision);
                     
                 }
                 
