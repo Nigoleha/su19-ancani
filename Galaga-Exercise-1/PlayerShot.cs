@@ -10,7 +10,7 @@ namespace Galaga_Exercise_1 {
         public PlayerShot(Game game, DynamicShape shape, IBaseImage image)
             : base(shape, image) {
             this.game = game;
-            shape.ChangeDirection(new Vec2F(0.0f, 0.01f));
+            shape.ChangeDirection(new Vec2F(0.0f, 0.02f));
         
 
         }

@@ -16,8 +16,12 @@ namespace Galaga_Exercise_1 {
         private DIKUArcade.Timers.GameTimer gameTimer;
         private Player player;
         private GameEventBus<object> eventBus;
+        
+        //Enimies 
         private List<Enemy> enemies; 
         private List<Image> enemyStrides;
+        
+        //Shots
         public List<PlayerShot> playerShots{get; private set; }
 		
 		//Explosions
@@ -45,16 +49,19 @@ namespace Galaga_Exercise_1 {
             eventBus.Subscribe(GameEventType.InputEvent, this);
             eventBus.Subscribe(GameEventType.WindowEvent, this);
        
+            //Enemies
             enemyStrides = ImageStride.CreateStrides(4,
                 Path.Combine("Assets", "Images", "BlueMonster.png"));
             enemies = new List<Enemy>();
             AddEnemies();
+            
+            //Shots
             playerShots = new List<PlayerShot>();
                 
             //explosions 
 			explosionStrides = ImageStride.CreateStrides(8, 
 				Path.Combine("Assets", "Images", "Explosion.png")); 
-			explosions = new AnimationContainer(8); 
+			explosions = new AnimationContainer(10); //Max element of monsters
              
         }
 
@@ -72,6 +79,7 @@ namespace Galaga_Exercise_1 {
                         ene.RenderEntity();
                     }
                     IterateShots();
+                    explosions.RenderAnimations();
                     win.SwapBuffers();
                 }
 
@@ -150,15 +158,22 @@ namespace Galaga_Exercise_1 {
            
         }
 
-        public void AddEnemies() {
-            Enemy enemy = new Enemy(this,
-                new DynamicShape(new Vec2F(0.45f, 0.8f), new Vec2F(0.1f, 0.1f)), 
-                new ImageStride(80, Path.Combine("Assets", "Images", "BlueMonster.png")));
-            
-            enemies.Add(enemy);
+        public void AddEnemies()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Enemy enemy = new Enemy(this,
+                    //x is changed 
+                    new DynamicShape(new Vec2F(i*0.1f, 0.8f), new Vec2F(0.1f, 0.1f)),
+                    //Changed to use enemyStrides, instead of the same picture each time 
+                    new ImageStride(80, enemyStrides));
+
+                enemies.Add(enemy);
+            }
         }
         
 		public void AddExplosion(float posX, float posY, float extentX, float extentY){
+            Console.WriteLine("Bang");
 			explosions.AddAnimation(
 				new StationaryShape(posX, posY, extentX, extentY), explosionLength, 
 				new ImageStride(explosionLength/8, explosionStrides)); 
@@ -175,19 +190,16 @@ namespace Galaga_Exercise_1 {
                 foreach (var enemy in enemies) {
                     Console.WriteLine(enemy.Shape.Position);
                     Console.WriteLine(shot.Shape.Position);
-                   // var collide = CollisionDetection.Aabb((DynamicShape) enemy.Shape, shot.Shape);
-                   var collide =
-                       CollisionDetection.Aabb(new DynamicShape(0.45f, 0.7799996f, 0.1f, 0.1f),
-                           shot.Shape);
+                    var collide = CollisionDetection.Aabb(shot.Shape.AsDynamicShape(), enemy.Shape);
+                    
                     if (collide.Collision) {
                         Console.WriteLine("HAllo");
-                        //AddExplosion (enemy.Shape.Position.X, enemy.Shape.Position.Y, 1.0f, 1.0f); 
-                        //enemy.DeleteEntity();
-                        //shot.DeleteEntity();
+                        AddExplosion (enemy.Shape.Position.X, enemy.Shape.Position.Y, 0.1f, 0.1f); 
+                        enemy.DeleteEntity();
+                        shot.DeleteEntity();
                     }
 
                     Console.WriteLine(collide.Collision);
-                    AddExplosion (enemy.Shape.Position.X, enemy.Shape.Position.Y, 1.0f, 1.0f);
                     
                 }
                 

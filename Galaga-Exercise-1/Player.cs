@@ -6,6 +6,7 @@ using DIKUArcade.Math;
 namespace Galaga_Exercise_1 {
     public class Player : Entity {
         private Game game;
+        private Image imageShot = new Image(Path.Combine("Assets", "Images", "BulletRed2.png")); 
         public Player(Game game, DynamicShape shape, IBaseImage image)
             : base(shape, image) {
             this.game = game;
@@ -33,7 +34,7 @@ namespace Galaga_Exercise_1 {
         public void CreateShots() {
             PlayerShot playershot = new PlayerShot(game, 
                 new DynamicShape(new Vec2F(Shape.Position.X +0.05f, Shape.Position.Y+0.05f), new Vec2F(0.008f, 0.027f)), 
-                new Image(Path.Combine("Assets", "Images", "BulletRed2.png")));
+                imageShot);
             game.playerShots.Add(playershot);
         }
     }
