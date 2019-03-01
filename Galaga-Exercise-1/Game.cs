@@ -17,7 +17,7 @@ namespace Galaga_Exercise_1 {
         private Player player;
         private GameEventBus<object> eventBus;
         
-        //Enimies 
+        //Enemies 
         private List<Enemy> enemies; 
         private List<Image> enemyStrides;
         
@@ -28,8 +28,10 @@ namespace Galaga_Exercise_1 {
 		private List<Image> explosionStrides; 
 		private AnimationContainer explosions; 
 		private int explosionLength = 500; 
-       
-
+		
+		// Score
+        private Score score;
+		
         public Game() {
             // TODO: Choose some reasonable values for the window and timer constructor.
             // For the window, we recommend a 500x500 resolution (a 1:1 aspect ratio).
@@ -58,11 +60,14 @@ namespace Galaga_Exercise_1 {
             //Shots
             playerShots = new List<PlayerShot>();
                 
-            //explosions 
+            //explosions  
 			explosionStrides = ImageStride.CreateStrides(8, 
 				Path.Combine("Assets", "Images", "Explosion.png")); 
 			explosions = new AnimationContainer(10); //Max element of monsters
              
+			
+			//Score 
+			score = new Score(new Vec2F(0.5f, 0.7f), new Vec2F(0.5f, 0.3f)); 
         }
 
         public void GameLoop() {
@@ -74,12 +79,17 @@ namespace Galaga_Exercise_1 {
 
                 if (gameTimer.ShouldRender()) {
                     win.Clear();
+                    // Render player
                     player.RenderEntity();
+                    // Render enemies
                     foreach (var ene in enemies) {
                         ene.RenderEntity();
                     }
+                    
                     IterateShots();
                     explosions.RenderAnimations();
+                    // Render score
+                    score.RenderScore();
                     win.SwapBuffers();
                 }
 
@@ -193,6 +203,9 @@ namespace Galaga_Exercise_1 {
                         AddExplosion (enemy.Shape.Position.X, enemy.Shape.Position.Y, 0.1f, 0.1f); 
                         enemy.DeleteEntity();
                         shot.DeleteEntity();
+                        // Call to add point here
+                        score.AddPoint();
+
                     }
                     
                 }
