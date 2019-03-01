@@ -18,8 +18,8 @@ namespace Galaga_Exercise_1 {
 
         }
         public void Move() {
-            Vec2F fixLeft = new Vec2F( 0.01f,  0.0f);
-            Vec2F fixRight = new Vec2F( -0.01f,  0.0f);
+            Vec2F fixLeft = new Vec2F( 0.02f,  0.0f);
+            Vec2F fixRight = new Vec2F( -0.02f,  0.0f);
             if (Shape.Position.X <= 0) {
                 Direction(fixLeft);
                 Shape.Move();
