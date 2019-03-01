@@ -12,9 +12,15 @@ using DIKUArcade.Physics;
 
 namespace Galaga_Exercise_1 {
     public class Game : IGameEventProcessor<object> {
+        
+        //Window and timer 
         private Window win;
         private DIKUArcade.Timers.GameTimer gameTimer;
+        
+        //Player 
         private Player player;
+        
+        //eventBus
         private GameEventBus<object> eventBus;
         
         //Enemies 
@@ -33,15 +39,17 @@ namespace Galaga_Exercise_1 {
         private Score score;
 		
         public Game() {
-            // TODO: Choose some reasonable values for the window and timer constructor.
-            // For the window, we recommend a 500x500 resolution (a 1:1 aspect ratio).
+            //Window and timer 
             win = new Window("Arcade Game", 500, 500);
             gameTimer = new GameTimer(60, 60);
-
+            
+            //Player
             player = new Player(this,
                 new DynamicShape(new Vec2F(0.45f, 0.1f), new Vec2F(0.1f, 0.1f)), 
                 new Image(Path.Combine("Assets", "Images", "Player.png")));
             player.Move();
+            
+            //Eventbus 
             eventBus = new GameEventBus<object>();
                 eventBus.InitializeEventBus(new List<GameEventType>() {
                     GameEventType.InputEvent, // key press / key release
@@ -60,7 +68,7 @@ namespace Galaga_Exercise_1 {
             //Shots
             playerShots = new List<PlayerShot>();
                 
-            //explosions  
+            //Explosions  
 			explosionStrides = ImageStride.CreateStrides(8, 
 				Path.Combine("Assets", "Images", "Explosion.png")); 
 			explosions = new AnimationContainer(10); //Max element of monsters
@@ -74,7 +82,7 @@ namespace Galaga_Exercise_1 {
             while (win.IsRunning()) {
                 gameTimer.MeasureTime();
                 while (gameTimer.ShouldUpdate()) {
-                    win.PollEvents(); // Update game logic here
+                    win.PollEvents(); // Update game logic 
                 }
 
                 if (gameTimer.ShouldRender()) {
@@ -86,9 +94,11 @@ namespace Galaga_Exercise_1 {
                         ene.RenderEntity();
                     }
                     
+                    //Shots 
                     IterateShots();
+                    
+                    //Explosions, score and win 
                     explosions.RenderAnimations();
-                    // Render score
                     score.RenderScore();
                     win.SwapBuffers();
                 }
@@ -177,7 +187,6 @@ namespace Galaga_Exercise_1 {
                     new DynamicShape(new Vec2F(i*0.1f, 0.8f), new Vec2F(0.1f, 0.1f)),
                     //Changed to use enemyStrides, instead of loading the same picture each time 
                     new ImageStride(80, enemyStrides));
-
                 enemies.Add(enemy);
             }
         }
@@ -198,18 +207,15 @@ namespace Galaga_Exercise_1 {
 
                 foreach (var enemy in enemies) {
                     var collide = CollisionDetection.Aabb(shot.Shape.AsDynamicShape(), enemy.Shape);
-                    
                     if (collide.Collision) {
                         AddExplosion (enemy.Shape.Position.X, enemy.Shape.Position.Y, 0.1f, 0.1f); 
                         enemy.DeleteEntity();
                         shot.DeleteEntity();
-                        // Call to add point here
                         score.AddPoint();
-
                     }
-                    
                 }
                 
+                //Update enemies and shots 
                 List<Enemy> newEnemies = new List<Enemy>();
                 foreach (Enemy enemy in enemies) {
                     if (!enemy.IsDeleted()) {
